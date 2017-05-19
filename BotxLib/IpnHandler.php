@@ -7,6 +7,7 @@
 
 namespace BotxLib;
 use BotxLib\Botx;
+use BotxLib\Exception;
 
 class IpnHandler {
   public $botx;
@@ -24,11 +25,11 @@ class IpnHandler {
   }
 
   private function checkSign() {
-
+    if($this->signature != $this->calculateSign())
+      throw new Exception\WrongSignatureException;
   }
 
   private function calculateSign() {
-    // Digest::SHA256.hexdigest "{#{id}}{#{project.id}}{#{transaction_type}}{#{amount}}{#{state}}{#{project.api_key}}"
     return hash('sha256', '{'.join('}{', [$transaction->id, $botx->projectId, $transaction->type, $transaction->amount, $transaction->steam_amount, $transaction->state, $botx->apiKey]).'}');
   }
 }

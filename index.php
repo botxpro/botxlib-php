@@ -21,7 +21,6 @@ try {
 // foreach($items as $item) {
 //   echo $item->market_hash_name.'<br>';
 // }
-  
 
   $deposit = $botx->withdraw([
     "uid" => "76561198078016715",

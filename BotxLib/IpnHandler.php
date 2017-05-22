@@ -8,6 +8,7 @@
 namespace BotxLib;
 use BotxLib\Botx;
 use BotxLib\Exception;
+use Botxlib\Transaction;
 
 class IpnHandler {
   public $botx;
@@ -16,12 +17,14 @@ class IpnHandler {
   private $signature;
 
   /** @var Array transaction */
-  private $transaction;
+  public $transaction;
 
   public function __construct($botx, $notification) {
     $this->botx = $botx;
-    $this->signature = (object)$notification['signature'];
-    $this->transaction = (object)$notification['transaction'];
+    $this->signature = $notification['signature'];
+    $this->transaction = new Transaction($notification['transaction']);
+
+    $this->checkSign();
   }
 
   private function checkSign() {

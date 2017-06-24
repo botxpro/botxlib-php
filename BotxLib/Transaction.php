@@ -32,9 +32,9 @@ class Transaction {
     $this->state              = $transaction->state;
     $this->description        = $transaction->description;
     $this->cancelDescription  = $transaction->cancelDescription;
-    // $this->attachmentable
-    if(in_array(this->type, self::OFFER_TYPES)) {
-      $this->attachmentable = new Tradeo
+
+    if(in_array($this->type, self::OFFER_TYPES)) {
+      $this->tradeoffer = new Tradeoffer($transaction->tradeoffer);
     }
   }
 }

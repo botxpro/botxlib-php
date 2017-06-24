@@ -21,7 +21,7 @@ class IpnHandler {
 
   public function __construct($botx, $notification) {
     $this->botx = $botx;
-    $this->signature = $notification['signature'];
+    $this->signature = $notification['sign'];
     $this->transaction = new Transaction($notification['transaction']);
 
     $this->checkSign();
@@ -33,6 +33,6 @@ class IpnHandler {
   }
 
   private function calculateSign() {
-    return hash('sha256', '{'.join('}{', [$transaction->id, $botx->projectId, $transaction->type, $transaction->amount, $transaction->steam_amount, $transaction->state, $botx->apiKey]).'}');
+    return hash('sha256', '{'.join('}{', [$this->transaction->id, $this->botx->projectId, $this->transaction->type, (int)($this->transaction->amount*100), (int)($this->transaction->steamAmount*100), $this->transaction->state, $this->botx->apiKey]).'}');
   }
 }

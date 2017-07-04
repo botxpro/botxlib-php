@@ -1,21 +1,22 @@
 {
   "name": "kaikash/botxlib",
-   "description": "It is public Botx PHP library",
-   "keywords": ["botx", "botx.pro", "steam bot"],
-   "license": "MIT",
-   "authors": [{
-     "name": "Gleb Vishnevsky",
-     "email": "vishgleb@mail.ru"
-    }],
-   "require": {
-      "php": "^5.3.3|^7.0",
-      "rmccue/requests": "^1.7.0"
-   },
-   "autoload": {
-      "psr-4": {
-        "Kaikash\\BotxLib\\": "src/"
-      }
-    },
+  "description": "It is public Botx PHP library",
+  "keywords": ["botx", "botx.pro", "steam bot"],
+  "license": "MIT",
+  "authors": [{
+    "name": "Gleb Vishnevsky",
+    "email": "vishgleb@mail.ru"
+  }],
+  "require": {
+    "php": "^5.3.3|^7.0",
+    "rmccue/requests": "^1.7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Kaikash\\BotxLib\\": "src/"
+    }
+  },
+  "version": "0.0.1",
   "repositories": [{   
     "type": "package",
     "package": {

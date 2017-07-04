@@ -9,7 +9,7 @@
     }],
    "require": {
       "php": "^5.3.3|^7.0",
-      "requests": "^1.7.0"
+      "rmccue/requests": "^1.7.0"
    },
    "autoload": {
       "psr-4": {
@@ -20,7 +20,7 @@
     "type": "package",
     "package": {
       "name": "kaikash/botxlib-php",
-      "version": "dev-master",
+      "version": "master",
       "source": {
         "url": "git://github.com/kaikash/botxlib-php.git",
         "type": "git",

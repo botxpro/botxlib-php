@@ -5,7 +5,8 @@
  * @license   https://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-namespace BotxLib;
+namespace Kaikash\BotxLib;
+
 use BotxLib\Botx;
 use BotxLib\Exception;
 use Botxlib\Transaction;

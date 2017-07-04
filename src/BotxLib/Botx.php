@@ -5,7 +5,7 @@
  * @license   https://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-namespace BotxLib;
+namespace Kaikash\BotxLib;
 
 use BotxLib\IpnHandler;
 use BotxLib\Exception;
@@ -13,8 +13,7 @@ use Requests;
 
 class Botx {
   /** @var string Botx api url */
-  // public $apiUrl = 'https://api.botx.pro';
-  public $apiUrl = 'http://localhost:5000';
+  public $apiUrl = 'https://api.botx.pro';
 
   /** @var integer Project id */
   public $projectId;

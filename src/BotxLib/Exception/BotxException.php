@@ -5,6 +5,6 @@
  * @license   https://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-namespace BotxLib\Exception;
+namespace Kaikash\BotxLib\Exception;
 
 class BotxException extends \RuntimeException {}

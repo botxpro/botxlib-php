@@ -13,15 +13,15 @@ use BotxLib\Exception;
 class Tradeoffer {
   public function __construct($tradeoffer) {
     $tradeoffer = (object)$tradeoffer;
-    $this->offerId    = $tradeoffer->offer_id;
-    $this->isOurOffer = $tradeoffer->is_our_offer;
+    $this->offer_id    = $tradeoffer->offer_id;
+    $this->is_our_offer = $tradeoffer->is_our_offer;
     $this->partner    = $tradeoffer->partner;
     $this->message    = $tradeoffer->message;
     $this->state      = $tradeoffer->state;
-    $this->stateName  = $tradeoffer->state_name;
+    $this->state_name  = $tradeoffer->state_name;
     $this->expires    = $tradeoffer->expires;
-    $this->botId      = $tradeoffer->botId;
-    $this->createdAt  = $tradeoffer->created_at;
-    $this->updateAt   = $tradeoffer->updated_at;
+    $this->bot_id      = $tradeoffer->bot_id;
+    $this->created_at  = $tradeoffer->created_at;
+    $this->updated_at   = $tradeoffer->updated_at;
   }
 }

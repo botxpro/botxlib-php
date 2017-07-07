@@ -9,20 +9,21 @@ namespace Kaikash\BotxLib;
 
 use BotxLib\IpnHandler;
 use BotxLib\Exception;
+use BotxLib\Helper;
 use Requests;
 
 class Botx {
   /** @var string Botx api url */
-  public $apiUrl = 'https://api.botx.pro';
+  public $api_url = 'https://api.botx.pro';
 
   /** @var integer Project id */
-  public $projectId;
+  public $project_id;
 
   /** @var string Project api key */
-  public $apiKey;
+  public $api_key;
 
   /** @var string Project type */
-  public $projectType;
+  public $project_type;
 
   /** const string Project types*/
   const MARKET_TYPE     = 'market';
@@ -36,11 +37,11 @@ class Botx {
     'market_withdraw'           => 'v1/remote/market/withdraw'
   ];
 
-  public function __construct($projectId, $apiKey, $projectType) {
-    $this->projectId    = $projectId;
-    $this->apiKey       = $apiKey;
-    $this->projectType  = $projectType;
-    if(!in_array($this->projectType, [self::MARKET_TYPE, self::INDIVIDUAL_TYPE]))
+  public function __construct($project_id, $api_key, $project_type) {
+    $this->project_id    = $project_id;
+    $this->api_key       = $api_key;
+    $this->project_type  = $project_type;
+    if(!in_array($this->project_type, [self::MARKET_TYPE, self::INDIVIDUAL_TYPE]))
       throw new Exception\WrongProjectTypeException;
   }
 
@@ -51,8 +52,8 @@ class Botx {
    *
    * @return array market items
    */ 
-  public function loadMarketItems($filters = []) {
-    $this->marketOnly();
+  public function load_market_items($filters = []) {
+    $this->market_only();
     $response = $this->send('get', self::ENDPOINTS['market_items'], $filters);
     return $response;
   }
@@ -64,8 +65,8 @@ class Botx {
    *
    * @return array market items
    */ 
-  public function loadUserInventory($filters = []) {
-    if($this->projectType == self::MARKET_TYPE) {
+  public function load_user_inventory($filters = []) {
+    if($this->project_type == self::MARKET_TYPE) {
       $response = $this->send('get', self::ENDPOINTS['market_user_inventory'], $filters);
     } else {
       $response = $this->send('get', self::ENDPOINTS['individual_user_inventory'], $filters);
@@ -74,13 +75,13 @@ class Botx {
   }
 
   public function deposit($items) {
-    $this->marketOnly();
+    $this->market_only();
     $response = $this->send('post', self::ENDPOINTS['market_deposit'], ['deposit' => $items]);
     return $response;
   }
 
   public function withdraw($items) {
-    $this->marketOnly();
+    $this->market_only();
     $response = $this->send('post', self::ENDPOINTS['market_withdraw'], ['withdraw' => $items]);
     return $response;
   }
@@ -96,13 +97,13 @@ class Botx {
   private function send($method, $endpoint, $options = []) {
     try {
       if($method == 'get') {
-        $response = Requests::request($this->buildUrl($endpoint), [], $this->buildOptions($options));
+        $response = Requests::request($this->build_url($endpoint), [], $this->build_options($options));
       } else if($method == 'post') {
-        $response = Requests::post($this->buildUrl($endpoint), [], $this->buildOptions($options));
+        $response = Requests::post($this->build_url($endpoint), [], $this->build_options($options));
       }
 
       /* decode json */
-      $body = (object)json_decode($response->body);
+      $body = (object)Helper::convertKeysToCamelCase(json_decode($response->body));
 
       /* pasring error msg */
       if(!$response->success)
@@ -120,21 +121,21 @@ class Botx {
     }
   }
 
-  private function buildUrl($endpoint) {
-    return $this->apiUrl . "/" . $endpoint;
+  private function build_url($endpoint) {
+    return $this->api_url . "/" . $endpoint;
   }
 
-  private function buildOptions($options = []) {
-    return array_merge($options, ['api_key' => $this->apiKey, 'project_id' => $this->projectId]);
+  private function build_options($options = []) {
+    return array_merge($options, ['api_key' => $this->api_key, 'project_id' => $this->project_id]);
   }
 
-  private function marketOnly() {
-    if($this->projectType != self::MARKET_TYPE) 
+  private function market_only() {
+    if($this->project_type != self::MARKET_TYPE) 
       throw new Exception\WrongProjectTypeException;
   }
 
-  private function individualOnly() {
-    if($this->projectType != self::INDIVIDUAL_TYPE) 
+  private function individual_only() {
+    if($this->project_type != self::INDIVIDUAL_TYPE) 
       throw new Exception\WrongProjectTypeException;
   }
 }

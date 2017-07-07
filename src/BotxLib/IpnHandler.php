@@ -28,12 +28,12 @@ class IpnHandler {
     $this->checkSign();
   }
 
-  private function checkSign() {
-    if($this->signature != $this->calculateSign())
+  private function check_sign() {
+    if($this->signature != $this->calculate_sign())
       throw new Exception\WrongSignatureException;
   }
 
-  private function calculateSign() {
-    return hash('sha256', '{'.join('}{', [$this->transaction->id, $this->botx->projectId, $this->transaction->type, (int)($this->transaction->amount*100), (int)($this->transaction->steamAmount*100), $this->transaction->state, $this->botx->apiKey]).'}');
+  private function calculate_sign() {
+    return hash('sha256', '{'.join('}{', [$this->transaction->id, $this->botx->project_id, $this->transaction->type, (int)($this->transaction->amount*100), (int)($this->transaction->steam_amount*100), $this->transaction->state, $this->botx->apiKey]).'}');
   }
 }

@@ -14,7 +14,7 @@ class InternalException extends BotxException {
     parent::__construct($message);
   }
 
-  public function getStatus() {
+  public function get_status() {
     return $this->status;
   }
 }

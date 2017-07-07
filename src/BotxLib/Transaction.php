@@ -11,15 +11,6 @@ use BotxLib\Botx;
 use BotxLib\Exception;
 
 class Transaction {
-  public $id;
-  public $amount;
-  public $steamAmount;
-  public $type;
-  public $state;
-  public $description;
-  public $cancelDescription;
-  public $attachmentable;
-
   const TYPES = ['balance_charge', 'cash_out', 'sent_offer', 'respond_to_offer', 'sell_to_market', 'buy_from_market', 'deposit', 'withdraw'];
   const OFFER_TYPES = ["deposit", "withdraw", "send_offer", "respond_to_offer"];
 
@@ -28,11 +19,11 @@ class Transaction {
 
     $this->id                 = $transaction->id;
     $this->amount             = $transaction->amount;
-    $this->steamAmount        = $transaction->steam_amount;
+    $this->steam_amount        = $transaction->steam_amount;
     $this->type               = $transaction->type;
     $this->state              = $transaction->state;
     $this->description        = $transaction->description;
-    $this->cancelDescription  = $transaction->cancelDescription;
+    $this->cancel_description  = $transaction->cancel_description;
 
     if(in_array($this->type, self::OFFER_TYPES)) {
       $this->tradeoffer = new Tradeoffer($transaction->tradeoffer);

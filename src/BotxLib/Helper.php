@@ -1,4 +1,6 @@
 <?php
+namespace Kaikash\BotxLib;
+
 class Helper {
   public static function convertKeysToCamelCase($apiResponseArray) {
       $keys = array_map(function ($i) {

@@ -7,8 +7,8 @@
 
 namespace Kaikash\BotxLib;
 
-use BotxLib\Botx;
-use BotxLib\Exception;
+use Kaikash\BotxLib\Botx;
+use Kaikash\BotxLib\Exception;
 
 class Transaction {
   const TYPES = ['balance_charge', 'cash_out', 'sent_offer', 'respond_to_offer', 'sell_to_market', 'buy_from_market', 'deposit', 'withdraw'];
@@ -19,11 +19,13 @@ class Transaction {
 
     $this->id                 = $transaction->id;
     $this->amount             = $transaction->amount;
-    $this->steam_amount        = $transaction->steam_amount;
+    $this->steam_amount       = $transaction->steam_amount;
+    $this->fee_percent        = $transaction->fee_percent;
+    $this->fee_amount         = $transaction->fee_amount;
     $this->type               = $transaction->type;
     $this->state              = $transaction->state;
     $this->description        = $transaction->description;
-    $this->cancel_description  = $transaction->cancel_description;
+    $this->cancel_description = $transaction->cancel_description;
 
     if(in_array($this->type, self::OFFER_TYPES)) {
       $this->tradeoffer = new Tradeoffer($transaction->tradeoffer);

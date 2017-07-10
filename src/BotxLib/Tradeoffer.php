@@ -7,8 +7,8 @@
 
 namespace Kaikash\BotxLib;
 
-use BotxLib\Botx;
-use BotxLib\Exception;
+use Kaikash\BotxLib\Botx;
+use Kaikash\BotxLib\Exception;
 
 class Tradeoffer {
   public function __construct($tradeoffer) {

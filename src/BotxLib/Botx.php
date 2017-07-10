@@ -7,9 +7,13 @@
 
 namespace Kaikash\BotxLib;
 
-use BotxLib\IpnHandler;
-use BotxLib\Exception;
-use BotxLib\Helper;
+use Kaikash\BotxLib\IpnHandler;
+use Kaikash\BotxLib\Exception\BotxException;
+use Kaikash\BotxLib\Exception\BadRequestException;
+use Kaikash\BotxLib\Exception\InternalException;
+use Kaikash\BotxLib\Exception\WrongProjectTypeException;
+use Kaikash\BotxLib\Exception\WrongSignatureException;
+use Exception;
 use Requests;
 
 class Botx {
@@ -42,7 +46,7 @@ class Botx {
     $this->api_key       = $api_key;
     $this->project_type  = $project_type;
     if(!in_array($this->project_type, [self::MARKET_TYPE, self::INDIVIDUAL_TYPE]))
-      throw new Exception\WrongProjectTypeException;
+      throw new WrongProjectTypeException;
   }
 
   /** 
@@ -103,21 +107,21 @@ class Botx {
       }
 
       /* decode json */
-      $body = (object)Helper::convertKeysToCamelCase(json_decode($response->body));
+      $body = (object)json_decode($response->body);
 
       /* pasring error msg */
       if(!$response->success)
-        $error_msg = $body->errors->full_messages[0] ? $body->errors->full_messages[0] : $body->errors[0];
+        $error_msg = isset($body->errors->full_messages[0]) ? $body->errors->full_messages[0] : $body->errors[0];
 
       /* throw excaption if status not 200 */
       if($response->status_code >= 500)
-        throw new Exception\InternalException($error_msg, $response->status_cde);
+        throw new InternalException($error_msg, $response->status_code);
       else if($response->status_code >= 400)
-        throw new Exception\BadRequestException($error_msg, $response->status_code);
+        throw new BadRequestException($error_msg, $response->status_code);
 
       return $body;
     } catch(\Requests_Exception $e) {
-      throw new Exception\InternalException($e->getMessage());
+      throw new InternalException($e->getMessage());
     }
   }
 
@@ -131,12 +135,12 @@ class Botx {
 
   private function market_only() {
     if($this->project_type != self::MARKET_TYPE) 
-      throw new Exception\WrongProjectTypeException;
+      throw new WrongProjectTypeException;
   }
 
   private function individual_only() {
     if($this->project_type != self::INDIVIDUAL_TYPE) 
-      throw new Exception\WrongProjectTypeException;
+      throw new WrongProjectTypeException;
   }
 }
 

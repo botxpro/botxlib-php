@@ -111,7 +111,9 @@ class Botx {
 
       /* pasring error msg */
       if(!$response->success)
-        $error_msg = isset($body->errors->full_messages[0]) ? $body->errors->full_messages[0] : $body->errors[0];
+        if(isset($body->errors->full_messages[0])) $error_msg = $body->errors->full_messages[0];
+        else if(isset($body->errors[0])) $error_msg = $body->errors[0];
+        else $error_msg->error;
 
       /* throw excaption if status not 200 */
       if($response->status_code >= 500)

@@ -38,7 +38,7 @@ class Botx {
     'market_user_inventory'     => 'v1/remote/market/inventories',
     'individual_user_inventory' => 'v1/remote/individual/inventories',
     'individual_items'          => 'v1/remote/individual/items',
-    'market_deposit'            => 'v1/remote/market/despoit',
+    'market_deposit'            => 'v1/remote/market/deposit',
     'market_withdraw'           => 'v1/remote/market/withdraw'
   ];
 

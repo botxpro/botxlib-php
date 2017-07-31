@@ -82,13 +82,13 @@ class Botx {
   public function deposit($items) {
     $this->market_only();
     $response = $this->send('post', self::ENDPOINTS['market_deposit'], ['deposit' => $items]);
-    return new Transaction($response);
+    return new Transaction($response->transaction);
   }
 
   public function withdraw($items) {
     $this->market_only();
     $response = $this->send('post', self::ENDPOINTS['market_withdraw'], ['withdraw' => $items]);
-    return new Transaction($response);
+    return new Transaction($response->transaction);
   }
 
   /** 

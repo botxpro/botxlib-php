@@ -26,12 +26,12 @@ class Transaction {
     $this->type               = $transaction->type;
     $this->state              = $transaction->state;
     $this->description        = $transaction->description;
-    
+
     if(isset($transaction->cancel_description))
       $this->cancel_description = $transaction->cancel_description;
     
 
-    if(in_array($this->type, self::OFFER_TYPES)) {
+    if(isset($transaction->tradeoffer) && in_array($this->type, self::OFFER_TYPES)) {
       $this->tradeoffer = new Tradeoffer($transaction->tradeoffer);
     }
   }

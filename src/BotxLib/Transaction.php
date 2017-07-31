@@ -18,6 +18,8 @@ class Transaction {
   public function __construct($transaction) {
     $transaction = (object)$transaction;
 
+    var_dump($transaction);
+
     $this->id                 = $transaction->id;
     $this->amount             = $transaction->amount;
     $this->steam_amount       = $transaction->steam_amount;

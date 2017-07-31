@@ -26,6 +26,7 @@ class Transaction {
     $this->type               = $transaction->type;
     $this->state              = $transaction->state;
     $this->description        = $transaction->description;
+    $this->cancel_description = "";
 
     if(isset($transaction->cancel_description))
       $this->cancel_description = $transaction->cancel_description;

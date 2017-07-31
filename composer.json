@@ -16,7 +16,7 @@
       "Kaikash\\BotxLib\\": "src/"
     }
   },
-  "version": "1.1.9",
+  "version": "1.2.0",
   "repositories": [{   
     "type": "package",
     "package": {

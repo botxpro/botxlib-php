@@ -14,7 +14,6 @@ class Transaction {
   const TYPES = ['balance_charge', 'cash_out', 'sent_offer', 'respond_to_offer', 'sell_to_market', 'buy_from_market', 'deposit', 'withdraw'];
   const OFFER_TYPES = ["deposit", "withdraw", "send_offer", "respond_to_offer"];
 
-  public $id, $amount, $steam_amount, $fee_percent, $fee_amount, $type, $state, $description, $cancel_description;
 
   public function __construct($transaction) {
     $transaction = (object)$transaction;

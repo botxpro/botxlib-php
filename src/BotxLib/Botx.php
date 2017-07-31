@@ -7,6 +7,7 @@
 
 namespace Kaikash\BotxLib;
 
+use Kaikash\BotxLib\Transaction;
 use Kaikash\BotxLib\IpnHandler;
 use Kaikash\BotxLib\Exception\BotxException;
 use Kaikash\BotxLib\Exception\BadRequestException;
@@ -81,13 +82,13 @@ class Botx {
   public function deposit($items) {
     $this->market_only();
     $response = $this->send('post', self::ENDPOINTS['market_deposit'], ['deposit' => $items]);
-    return $response;
+    return new Transaction($response);
   }
 
   public function withdraw($items) {
     $this->market_only();
     $response = $this->send('post', self::ENDPOINTS['market_withdraw'], ['withdraw' => $items]);
-    return $response;
+    return new Transaction($response);
   }
 
   /** 

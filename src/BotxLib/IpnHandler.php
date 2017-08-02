@@ -25,7 +25,7 @@ class IpnHandler {
     $this->signature = $notification['sign'];
     $this->transaction = new Transaction($notification['transaction']);
 
-    $this->checkSign();
+    $this->check_sign();
   }
 
   private function check_sign() {

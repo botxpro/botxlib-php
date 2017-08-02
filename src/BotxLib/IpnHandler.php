@@ -34,6 +34,6 @@ class IpnHandler {
   }
 
   private function calculate_sign() {
-    return hash('sha256', '{'.join('}{', [$this->transaction->id, $this->botx->project_id, $this->transaction->type, (int)($this->transaction->amount*100), (int)($this->transaction->steam_amount*100), $this->transaction->state, $this->botx->apiKey]).'}');
+    return hash('sha256', '{'.join('}{', [$this->transaction->id, $this->botx->project_id, $this->transaction->type, (int)($this->transaction->amount*100), (int)($this->transaction->steam_amount*100), $this->transaction->state, $this->botx->api_key]).'}');
   }
 }

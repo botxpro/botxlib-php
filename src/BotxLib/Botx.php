@@ -7,6 +7,7 @@
 
 namespace Kaikash\BotxLib;
 
+use Kaikash\BotxLib\Transaction;
 use Kaikash\BotxLib\IpnHandler;
 use Kaikash\BotxLib\Exception\BotxException;
 use Kaikash\BotxLib\Exception\BadRequestException;
@@ -37,7 +38,7 @@ class Botx {
     'market_user_inventory'     => 'v1/remote/market/inventories',
     'individual_user_inventory' => 'v1/remote/individual/inventories',
     'individual_items'          => 'v1/remote/individual/items',
-    'market_deposit'            => 'v1/remote/market/despoit',
+    'market_deposit'            => 'v1/remote/market/deposit',
     'market_withdraw'           => 'v1/remote/market/withdraw'
   ];
 
@@ -81,13 +82,13 @@ class Botx {
   public function deposit($items) {
     $this->market_only();
     $response = $this->send('post', self::ENDPOINTS['market_deposit'], ['deposit' => $items]);
-    return $response;
+    return new Transaction($response->transaction);
   }
 
   public function withdraw($items) {
     $this->market_only();
     $response = $this->send('post', self::ENDPOINTS['market_withdraw'], ['withdraw' => $items]);
-    return $response;
+    return new Transaction($response->transaction);
   }
 
   /** 

@@ -9,7 +9,7 @@ namespace Kaikash\BotxLib;
 
 use Kaikash\BotxLib\Botx;
 use Kaikash\BotxLib\Exception;
-use Kaikash\Botxlib\Transaction;
+use Kaikash\BotxLib\Transaction;
 
 class IpnHandler {
   public $botx;
@@ -25,7 +25,7 @@ class IpnHandler {
     $this->signature = $notification['sign'];
     $this->transaction = new Transaction($notification['transaction']);
 
-    $this->checkSign();
+    $this->check_sign();
   }
 
   private function check_sign() {
@@ -34,6 +34,6 @@ class IpnHandler {
   }
 
   private function calculate_sign() {
-    return hash('sha256', '{'.join('}{', [$this->transaction->id, $this->botx->project_id, $this->transaction->type, ($this->transaction->amount*100), ($this->transaction->steam_amount*100), $this->transaction->state, $this->botx->apiKey]).'}');
+    return hash('sha256', '{'.join('}{', [$this->transaction->id, $this->botx->project_id, $this->transaction->type, ($this->transaction->amount*100), ($this->transaction->steam_amount*100), $this->transaction->state, $this->botx->api_key]).'}');
   }
 }

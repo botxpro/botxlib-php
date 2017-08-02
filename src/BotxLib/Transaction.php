@@ -14,6 +14,7 @@ class Transaction {
   const TYPES = ['balance_charge', 'cash_out', 'sent_offer', 'respond_to_offer', 'sell_to_market', 'buy_from_market', 'deposit', 'withdraw'];
   const OFFER_TYPES = ["deposit", "withdraw", "send_offer", "respond_to_offer"];
 
+
   public function __construct($transaction) {
     $transaction = (object)$transaction;
 
@@ -25,9 +26,13 @@ class Transaction {
     $this->type               = $transaction->type;
     $this->state              = $transaction->state;
     $this->description        = $transaction->description;
-    $this->cancel_description = $transaction->cancel_description;
+    $this->cancel_description = "";
 
-    if(in_array($this->type, self::OFFER_TYPES)) {
+    if(isset($transaction->cancel_description))
+      $this->cancel_description = $transaction->cancel_description;
+    
+
+    if(isset($transaction->tradeoffer) && in_array($this->type, self::OFFER_TYPES)) {
       $this->tradeoffer = new Tradeoffer($transaction->tradeoffer);
     }
   }

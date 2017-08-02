@@ -9,7 +9,7 @@ namespace Kaikash\BotxLib;
 
 use Kaikash\BotxLib\Botx;
 use Kaikash\BotxLib\Exception;
-use Kaikash\Botxlib\Transaction;
+use Kaikash\BotxLib\Transaction;
 
 class IpnHandler {
   public $botx;

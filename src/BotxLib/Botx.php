@@ -158,7 +158,7 @@ class Botx {
   }
 
   private function calculate_item_hash($item) {
-    return hash('sha256', '{'.join('}{', [$item['appid'], $item['contextid'], $item['assetid'], $item['botx_price'], $item['steam_price'], $this->botx->api_key]).'}');
+    return hash('sha256', '{'.join('}{', [$item['appid'], $item['contextid'], $item['assetid'], $item['our_price'], $item['steam_price'], $this->botx->api_key]).'}');
   }
 }
 

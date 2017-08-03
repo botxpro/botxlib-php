@@ -153,12 +153,14 @@ class Botx {
   }
 
   private function check_item_hash($item) {
+    if(!isset($item['hash']) || !isset($item['appid']) || !isset($item['contextid']) || !isset($item['assetid']) || !isset($item['steam_price']) || !isset($item['steam_price']))
+      throw new WrongSignatureException;
     if($item['hash'] != $this->calculate_item_hash($item))
       throw new WrongSignatureException;
   }
 
   private function calculate_item_hash($item) {
-    return hash('sha256', '{'.join('}{', [$item['appid'], $item['contextid'], $item['assetid'], $item['our_price'], $item['steam_price'], $this->botx->api_key]).'}');
+    return hash('sha256', '{'.join('}{', [$item['appid'], $item['contextid'], $item['assetid'], $item['our_price'], $item['steam_price'], $this->api_key]).'}');
   }
 }
 

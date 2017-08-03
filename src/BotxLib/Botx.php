@@ -87,6 +87,9 @@ class Botx {
 
   public function withdraw($items) {
     $this->market_only();
+    foreach($items as $item) {
+      $this->check_item_hash($item);
+    }
     $response = $this->send('post', self::ENDPOINTS['market_withdraw'], ['withdraw' => $items]);
     return new Transaction($response->transaction);
   }
@@ -145,9 +148,16 @@ class Botx {
     if($this->project_type != self::INDIVIDUAL_TYPE) 
       throw new WrongProjectTypeException;
   }
+
+  private function check_item_hash($item) {
+    if($item['hash'] != $this->calculate_item_hash($item))
+      throw new WrongSignatureException;
+  }
+
+  private function calculate_item_hash($item) {
+    return hash('sha256', '{'.join('}{', [$item['appid'], $item['contextid'], $item['assetid'], $item['botx_price'], $item['steam_price'], $this->botx->api_key]).'}');
+  }
 }
-
-
 
 
 

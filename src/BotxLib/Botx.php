@@ -87,11 +87,14 @@ class Botx {
 
   public function withdraw($items) {
     $this->market_only();
+    $response = $this->send('post', self::ENDPOINTS['market_withdraw'], ['withdraw' => $items]);
+    return new Transaction($response->transaction);
+  }
+
+  public function check_withdraw_items($items) {
     foreach($items as $item) {
       $this->check_item_hash($item);
     }
-    $response = $this->send('post', self::ENDPOINTS['market_withdraw'], ['withdraw' => $items]);
-    return new Transaction($response->transaction);
   }
 
   /** 

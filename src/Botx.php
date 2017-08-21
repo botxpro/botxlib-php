@@ -81,17 +81,20 @@ class Botx {
 
   public function deposit($items) {
     $this->market_only();
+    if(!$items) throw new BadRequestException('no items present', 422);
     $response = $this->send('post', self::ENDPOINTS['market_deposit'], ['deposit' => $items]);
     return new Transaction($response->transaction);
   }
 
   public function withdraw($items) {
     $this->market_only();
+    if(!$items) throw new BadRequestException('no items present', 422);
     $response = $this->send('post', self::ENDPOINTS['market_withdraw'], ['withdraw' => $items]);
     return new Transaction($response->transaction);
   }
 
   public function check_withdraw_items($items) {
+    if(!$items) throw new BadRequestException('no items present', 422);
     foreach($items as $item) {
       $this->check_item_hash($item);
     }
